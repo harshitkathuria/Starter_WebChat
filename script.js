@@ -22,14 +22,17 @@ socket.on('user-disconnected', name => {
 messageForm.addEventListener('submit', e => {
   e.preventDefault()
   const message = messageInput.value
-  appendMessage(`You: ${message}`)
+  appendMessage(`You: ${message}`, true)
   socket.emit('send-chat-message', message)
   messageInput.value = ''
   messageInput.focus();
 })
 
-function appendMessage(msg) {
+function appendMessage(msg, onRight = false) {
   const el = document.createElement('div')
   el.innerText = msg
+  if(onRight) {
+    el.style.textAlign = 'right'
+  }
   messsageContainer.append(el)
 }
